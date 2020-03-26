@@ -1,8 +1,7 @@
-package chess.domain.piece.pawn;
+package chess.domain.piece;
 
 import java.util.List;
 
-import chess.domain.piece.MoveStrategy;
 import chess.domain.position.MovableAreaFactory;
 import chess.domain.position.Position;
 import chess.domain.position.Row;

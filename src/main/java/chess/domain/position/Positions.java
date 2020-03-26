@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Path {
+public class Positions {
 	private final List<Position> path;
 
-	private Path(List<Position> path) {
+	private Positions(List<Position> path) {
 		this.path = path;
 	}
 
-	public static Path of(Position start, Position end) {
+	public static Positions of(Position start, Position end) {
 		List<Position> path = new ArrayList<>();
 
 		Position current = start;
@@ -19,10 +19,10 @@ public class Path {
 			current = Direction.of(current, end).move(current);
 			path.add(current);
 		}
-		return new Path(path);
+		return new Positions(path);
 	}
 
-	public static Path of(String start, String end) {
+	public static Positions of(String start, String end) {
 		return of(Position.of(start), Position.of(end));
 	}
 

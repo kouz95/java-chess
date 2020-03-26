@@ -9,8 +9,8 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import chess.domain.piece.Piece;
-import chess.domain.piece.rook.Rook;
-import chess.domain.position.Path;
+import chess.domain.piece.Rook;
+import chess.domain.position.Positions;
 
 class BoardsTest {
 	@Test
@@ -37,9 +37,9 @@ class BoardsTest {
 		Map<String, Piece> upperBoard = new LinkedHashMap<>();
 
 		Boards boards = Boards.of(lowerBoard, upperBoard);
-		Path path = Path.of(A1, A3);
+		Positions positions = Positions.of(A1, A3);
 
-		assertThat(boards.hasPieceIn(path.path())).isTrue();
+		assertThat(boards.hasPieceIn(positions.path())).isTrue();
 	}
 
 	@Test
@@ -49,8 +49,8 @@ class BoardsTest {
 		upperBoard.put("g7", new Rook(G7));
 
 		Boards boards = Boards.of(lowerBoard, upperBoard);
-		Path path = Path.of(B1, B3);
+		Positions positions = Positions.of(B1, B3);
 
-		assertThat(boards.hasPieceIn(path.path())).isTrue();
+		assertThat(boards.hasPieceIn(positions.path())).isTrue();
 	}
 }

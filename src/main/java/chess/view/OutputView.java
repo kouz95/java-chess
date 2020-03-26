@@ -2,6 +2,8 @@ package chess.view;
 
 import java.util.Map;
 
+import chess.domain.Status;
+
 public class OutputView {
 	private static final String NEW_LINE = System.lineSeparator();
 
@@ -27,7 +29,9 @@ public class OutputView {
 		System.out.print(NEW_LINE);
 	}
 
-	public static void printScore(String name, double score) {
-		System.out.println(name + "팀 점수: " + score);
+	public static void printStatus(Status status) {
+		System.out.println("White 팀 점수: " + status.getWhiteScore());
+		System.out.println("Black 팀 점수: " + status.getBlackScore());
+		System.out.println("결과 : " + status.getResult());
 	}
 }

@@ -1,9 +1,8 @@
-package chess.domain.piece.queen;
+package chess.domain.piece;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.domain.piece.MoveStrategy;
 import chess.domain.position.MovableAreaFactory;
 import chess.domain.position.Position;
 

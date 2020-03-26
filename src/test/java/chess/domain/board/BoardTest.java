@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import chess.domain.piece.Piece;
-import chess.domain.piece.rook.Rook;
+import chess.domain.piece.Rook;
 
 class BoardTest {
 	private Board board;

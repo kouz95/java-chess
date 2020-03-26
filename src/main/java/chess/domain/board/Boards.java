@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import chess.domain.Turn;
+import chess.domain.piece.Pawn;
 import chess.domain.piece.Piece;
-import chess.domain.piece.pawn.Pawn;
 import chess.domain.position.Position;
 
 public class Boards {
@@ -79,11 +79,11 @@ public class Boards {
 		}
 	}
 
-	public boolean isBothKingAlive() {
+	public boolean isKingDead() {
 		return getTotal().values()
 			.stream()
 			.filter(piece -> piece.toLowerCase().equals(KING))
-			.count() == 2;
+			.count() < 2;
 	}
 
 	public double getScoreOf(Turn turn) {
