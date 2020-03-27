@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MovableAreaFactory {
+	private static final int AROUND_BOUND = 1;
+	private static final List<Integer> KNIGHT_MOVE_SET = List.of(1, 2);
+
 	public static List<Position> columnOf(Position pivot) {
 		return Position.getPositions()
 			.stream()
@@ -41,7 +44,8 @@ public class MovableAreaFactory {
 	}
 
 	private static boolean isAround(Position pivot, Position position) {
-		return Math.abs(position.getColumnGap(pivot)) <= 1 && Math.abs(position.getRowGap(pivot)) <= 1;
+		return Math.abs(position.getColumnGap(pivot)) <= AROUND_BOUND &&
+			Math.abs(position.getRowGap(pivot)) <= AROUND_BOUND;
 	}
 
 	public static List<Position> knightOf(Position pivot) {
@@ -52,8 +56,10 @@ public class MovableAreaFactory {
 	}
 
 	private static boolean isKnight(Position pivot, Position position) {
-		return (Math.abs(position.getColumnGap(pivot)) == 2 && Math.abs(position.getRowGap(pivot)) == 1) ||
-			(Math.abs(position.getColumnGap(pivot)) == 1 && Math.abs(position.getRowGap(pivot)) == 2);
+		return List.of(
+			Math.abs(position.getColumnGap(pivot)),
+			Math.abs(position.getRowGap(pivot))
+		).containsAll(KNIGHT_MOVE_SET);
 	}
 
 	public static List<Position> pawnOf(Position pivot) {

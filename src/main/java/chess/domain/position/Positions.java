@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Positions {
-	private final List<Position> path;
+import chess.domain.Direction;
+import chess.domain.Distance;
 
-	private Positions(List<Position> path) {
-		this.path = path;
+public class Positions {
+	private final List<Position> positions;
+
+	private Positions(List<Position> positions) {
+		this.positions = positions;
 	}
 
 	public static Positions of(Position start, Position end) {
@@ -27,7 +30,7 @@ public class Positions {
 	}
 
 	public List<String> path() {
-		return path.stream()
+		return positions.stream()
 			.map(Position::getName)
 			.collect(Collectors.toUnmodifiableList());
 	}
