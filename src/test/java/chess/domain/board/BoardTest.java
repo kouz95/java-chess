@@ -44,13 +44,13 @@ class BoardTest {
 
 	@Test
 	void containsKey() {
-		assertThat(board.containsKey("a1")).isTrue();
-		assertThat(board.containsKey("a2")).isFalse();
+		assertThat(board.hasPieceIn("a1")).isTrue();
+		assertThat(board.hasPieceIn("a2")).isFalse();
 	}
 
 	@Test
 	void update_When_Success() {
-		board.update("a1", "a3");
+		board.movePiece("a1", "a3");
 		assertThat(board.get("a3")).isEqualTo(rook);
 		assertThatIllegalArgumentException().isThrownBy(() ->
 			board.get("a1")
@@ -60,7 +60,7 @@ class BoardTest {
 	@Test
 	void update_When_Fail() {
 		assertThatIllegalArgumentException().isThrownBy(() ->
-			board.update("a1", "a5")
+			board.movePiece("a1", "a5")
 		).withMessage("아군 기물이 위치하고 있습니다.");
 	}
 }

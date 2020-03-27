@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import chess.domain.Turn;
-import chess.domain.piece.Pawn;
 import chess.domain.piece.Piece;
 import chess.domain.position.Position;
 
@@ -15,7 +14,7 @@ public class Boards {
 	private static final int LOWER_BOARD = 0;
 	private static final int UPPER_BOARD = 1;
 	private static final String KING = "k";
-	private static final String PAWN = "p";
+	private static final int INITIAL_KINGS_COUNT = 2;
 
 	private final List<Board> boards;
 
@@ -58,35 +57,65 @@ public class Boards {
 
 	public boolean hasPieceIn(List<String> path) {
 		return path.stream()
-			.anyMatch(key -> getTotal().containsKey(key));
+			.anyMatch(this::hasPieceInCompleteBoard);
+	}
+
+	private boolean hasPieceInCompleteBoard(String key) {
+		return getTotal().containsKey(key);
 	}
 
 	public void move(String from, String to, Turn turn) {
-		if (boards.get(turn.self()).get(from) instanceof Pawn) {
-			pawnMove(from, to, turn);
+		if (hasPawnIn(from, turn)) {
+			verifyMoveOfPawn(from, to, turn);
 		}
-		boards.get(turn.self()).update(from, to);
-		boards.get(turn.enemy()).remove(Position.getReversedNameOf(to));
+
+		updateBoards(from, to, turn);
 	}
 
-	private void pawnMove(String from, String to, Turn turn) {
+	private boolean hasPawnIn(String from, Turn turn) {
+		return selfBoardOf(turn).isPawnIn(from);
+	}
+
+	private void updateBoards(String from, String to, Turn turn) {
+		selfBoardOf(turn).movePiece(from, to);
+		enemyBoardOf(turn).remove(Position.getReversedNameOf(to));
+	}
+
+	private Board selfBoardOf(Turn turn) {
+		return boards.get(turn.self());
+	}
+
+	private Board enemyBoardOf(Turn turn) {
+		return boards.get(turn.enemy());
+	}
+
+	private void verifyMoveOfPawn(String from, String to, Turn turn) {
 		int columnGap = Position.of(from).getColumnGap(Position.of(to));
-		if (columnGap == 0 && boards.get(turn.enemy()).containsKey(Position.getReversedNameOf(to))) {
+
+		if (isVertical(columnGap) && enemyBoardOf(turn).hasPieceIn(Position.getReversedNameOf(to))) {
 			throw new IllegalArgumentException("폰은 전방의 적을 공격할 수 없습니다.");
 		}
-		if (columnGap == 1 && !boards.get(turn.enemy()).containsKey(Position.getReversedNameOf(to))){
+		if (isNotVertical(columnGap) && (enemyBoardOf(turn).hasNotPieceIn(Position.getReversedNameOf(to)))) {
 			throw new IllegalArgumentException("폰은 공격이 아니면 대각선 이동이 불가합니다.");
 		}
+	}
+
+	private boolean isVertical(int columnGap) {
+		return columnGap == 0;
+	}
+
+	private boolean isNotVertical(int columnGap) {
+		return columnGap != 0;
 	}
 
 	public boolean isKingDead() {
 		return getTotal().values()
 			.stream()
 			.filter(piece -> piece.toLowerCase().equals(KING))
-			.count() < 2;
+			.count() < INITIAL_KINGS_COUNT;
 	}
 
 	public double getScoreOf(Turn turn) {
-		return boards.get(turn.self()).getScore();
+		return selfBoardOf(turn).getScore();
 	}
 }

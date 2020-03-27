@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import chess.domain.piece.Pawn;
 import chess.domain.piece.Piece;
 import chess.domain.position.Position;
 
@@ -31,19 +32,23 @@ public class Board {
 	}
 
 	public Piece get(String key) {
-		if (!containsKey(key)) {
+		if (!hasPieceIn(key)) {
 			throw new IllegalArgumentException("기물이 존재하지 않습니다.");
 		}
 		return board.get(key);
 	}
 
-	public boolean containsKey(String key) {
+	public boolean hasPieceIn(String key) {
 		return board.containsKey(key);
 	}
 
-	public void update(String from, String to) {
+	public boolean hasNotPieceIn(String key) {
+		return !board.containsKey(key);
+	}
+
+	public void movePiece(String from, String to) {
 		Piece piece = get(from);
-		if (containsKey(to)) {
+		if (hasPieceIn(to)) {
 			throw new IllegalArgumentException("아군 기물이 위치하고 있습니다.");
 		}
 
@@ -66,5 +71,9 @@ public class Board {
 
 	public void remove(String key) {
 		board.remove(key);
+	}
+
+	public boolean isPawnIn(String key) {
+		return get(key) instanceof Pawn;
 	}
 }
