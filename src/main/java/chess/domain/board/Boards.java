@@ -65,20 +65,15 @@ public class Boards {
 	}
 
 	public void move(String from, String to, Turn turn) {
-		if (hasPawnIn(from, turn)) {
+		if (isPawn(from, turn)) {
 			verifyMoveOfPawn(from, to, turn);
 		}
 
 		updateBoards(from, to, turn);
 	}
 
-	private boolean hasPawnIn(String from, Turn turn) {
+	private boolean isPawn(String from, Turn turn) {
 		return selfBoardOf(turn).isPawnIn(from);
-	}
-
-	private void updateBoards(String from, String to, Turn turn) {
-		selfBoardOf(turn).movePiece(from, to);
-		enemyBoardOf(turn).remove(Position.getReversedNameOf(to));
 	}
 
 	private Board selfBoardOf(Turn turn) {
@@ -106,6 +101,11 @@ public class Boards {
 
 	private boolean isNotVertical(int columnGap) {
 		return columnGap != 0;
+	}
+
+	private void updateBoards(String from, String to, Turn turn) {
+		selfBoardOf(turn).movePiece(from, to);
+		enemyBoardOf(turn).remove(Position.getReversedNameOf(to));
 	}
 
 	public boolean isKingDead() {

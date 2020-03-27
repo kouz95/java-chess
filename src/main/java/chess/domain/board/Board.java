@@ -31,31 +31,34 @@ public class Board {
 				LinkedHashMap::new));
 	}
 
-	public Piece get(String key) {
-		if (!hasPieceIn(key)) {
+	private Piece getPieceIn(String key) {
+		if (hasNotPieceIn(key)) {
 			throw new IllegalArgumentException("기물이 존재하지 않습니다.");
 		}
 		return board.get(key);
-	}
-
-	public boolean hasPieceIn(String key) {
-		return board.containsKey(key);
 	}
 
 	public boolean hasNotPieceIn(String key) {
 		return !board.containsKey(key);
 	}
 
+	public boolean hasPieceIn(String key) {
+		return board.containsKey(key);
+	}
+
 	public void movePiece(String from, String to) {
-		Piece piece = get(from);
+		Piece target = getPieceIn(from);
 		if (hasPieceIn(to)) {
 			throw new IllegalArgumentException("아군 기물이 위치하고 있습니다.");
 		}
 
-		piece.moveTo(Position.of(to));
-		board.put(to, piece);
-
+		target.moveTo(Position.of(to));
+		board.put(to, target);
 		remove(from);
+	}
+
+	public void remove(String key) {
+		board.remove(key);
 	}
 
 	public double getScore() {
@@ -69,11 +72,7 @@ public class Board {
 			.sum();
 	}
 
-	public void remove(String key) {
-		board.remove(key);
-	}
-
 	public boolean isPawnIn(String key) {
-		return get(key) instanceof Pawn;
+		return getPieceIn(key) instanceof Pawn;
 	}
 }
