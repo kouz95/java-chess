@@ -2,7 +2,7 @@ package chess.view;
 
 import java.util.Map;
 
-import chess.domain.Status;
+import chess.domain.status.Status;
 
 public class OutputView {
 	private static final String NEW_LINE = System.lineSeparator();

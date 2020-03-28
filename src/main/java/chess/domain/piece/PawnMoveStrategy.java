@@ -2,7 +2,6 @@ package chess.domain.piece;
 
 import java.util.List;
 
-import chess.domain.position.MovableAreaFactory;
 import chess.domain.position.Position;
 import chess.domain.position.Row;
 

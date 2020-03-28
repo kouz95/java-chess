@@ -1,4 +1,6 @@
-package chess.domain.position;
+package chess.domain.piece;
+
+import chess.domain.position.Position;
 
 import java.util.List;
 import java.util.stream.Collectors;

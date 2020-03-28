@@ -3,7 +3,6 @@ package chess.domain.piece;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.domain.position.MovableAreaFactory;
 import chess.domain.position.Position;
 
 public class RookMoveStrategy implements MoveStrategy {

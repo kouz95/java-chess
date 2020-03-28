@@ -1,7 +1,8 @@
-package chess.domain;
+package chess.domain.position;
 
 import static org.assertj.core.api.Assertions.*;
 
+import chess.domain.position.Distance;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

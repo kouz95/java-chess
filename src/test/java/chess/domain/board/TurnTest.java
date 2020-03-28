@@ -1,7 +1,8 @@
-package chess.domain;
+package chess.domain.board;
 
 import static org.assertj.core.api.Assertions.*;
 
+import chess.domain.board.Turn;
 import org.junit.jupiter.api.Test;
 
 class TurnTest {

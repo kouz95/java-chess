@@ -1,6 +1,4 @@
-package chess.domain;
-
-import chess.domain.position.Position;
+package chess.domain.position;
 
 public class Distance {
 	private final int distance;

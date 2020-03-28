@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import chess.domain.Direction;
-import chess.domain.Distance;
-
 public class Positions {
 	private final List<Position> positions;
 

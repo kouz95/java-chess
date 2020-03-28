@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
+import chess.domain.piece.MovableAreaFactory;
 import org.junit.jupiter.api.Test;
 
 class MovableAreaFactoryTest {

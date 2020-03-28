@@ -1,9 +1,10 @@
-package chess.domain.controller;
+package chess.controller;
 
 import chess.domain.MoveInfo;
 import chess.domain.RunInfo;
-import chess.domain.Turn;
+import chess.domain.board.Turn;
 import chess.domain.board.Boards;
+import chess.domain.status.StatusFactory;
 import chess.service.ChessService;
 import chess.view.OutputView;
 
@@ -13,6 +14,7 @@ public class ChessController {
 			move(boards, turn, runInfo);
 		}
 		if (runInfo.isStatus()) {
+
 			status(boards);
 			System.exit(0);
 		}
@@ -27,6 +29,6 @@ public class ChessController {
 	}
 
 	private static void status(Boards boards) {
-		OutputView.printStatus(ChessService.getStatus(boards));
+		OutputView.printStatus(StatusFactory.createBy(boards));
 	}
 }

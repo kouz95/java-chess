@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import chess.domain.Turn;
 import chess.domain.piece.Piece;
 import chess.domain.position.Position;
 

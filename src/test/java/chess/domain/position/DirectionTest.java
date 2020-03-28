@@ -1,9 +1,10 @@
-package chess.domain;
+package chess.domain.position;
 
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.stream.Stream;
 
+import chess.domain.position.Direction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

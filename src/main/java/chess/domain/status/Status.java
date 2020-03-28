@@ -1,4 +1,6 @@
-package chess.domain;
+package chess.domain.status;
+
+import chess.domain.board.Turn;
 
 import java.util.Map;
 

@@ -1,10 +1,8 @@
-package chess.domain;
+package chess.domain.position;
 
 import java.util.Arrays;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
-
-import chess.domain.position.Position;
 
 public enum Direction {
 	E((start, end) ->  start.getColumnGap(end) < 0 && start.getRowGap(end) == 0, Position::right),

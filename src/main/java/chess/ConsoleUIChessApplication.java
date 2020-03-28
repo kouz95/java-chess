@@ -2,10 +2,10 @@ package chess;
 
 import chess.domain.InitialInputType;
 import chess.domain.RunInfo;
-import chess.domain.Turn;
+import chess.domain.board.Turn;
 import chess.domain.board.BoardFactory;
 import chess.domain.board.Boards;
-import chess.domain.controller.ChessController;
+import chess.controller.ChessController;
 import chess.view.InputView;
 import chess.view.OutputView;
 
