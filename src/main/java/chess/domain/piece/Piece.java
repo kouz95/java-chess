@@ -4,7 +4,7 @@ import chess.domain.position.Position;
 
 public abstract class Piece {
 	protected Position position;
-	protected final String name;
+	protected String name;
 	protected final MoveStrategy moveStrategy;
 
 	public Piece(Position position, String name, MoveStrategy moveStrategy) {
@@ -30,5 +30,26 @@ public abstract class Piece {
 
 	public String getName() {
 		return name;
+	}
+
+	public boolean isNotEmpty() {
+		return !(this instanceof Empty);
+	}
+
+	public boolean isKing() {
+		return this instanceof King;
+	}
+
+	public Piece getNameReversed() {
+		this.toUpperName();
+		return this;
+	}
+
+	private void toUpperName() {
+		name = name.toUpperCase();
+	}
+
+	public boolean isPositionEqualsTo(Position that) {
+		return this.position.equals(that);
 	}
 }

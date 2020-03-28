@@ -26,9 +26,7 @@ public class Positions {
 		return of(Position.of(start), Position.of(end));
 	}
 
-	public List<String> path() {
-		return positions.stream()
-			.map(Position::getName)
-			.collect(Collectors.toUnmodifiableList());
+	public List<Position> path() {
+		return positions;
 	}
 }

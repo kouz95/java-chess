@@ -2,9 +2,7 @@ package chess;
 
 import chess.domain.InitialInputType;
 import chess.domain.RunInfo;
-import chess.domain.board.Turn;
-import chess.domain.board.BoardFactory;
-import chess.domain.board.Boards;
+import chess.domain.board.*;
 import chess.controller.ChessController;
 import chess.view.InputView;
 import chess.view.OutputView;
@@ -14,13 +12,14 @@ public class ConsoleUIChessApplication {
 		OutputView.printInitialMessage();
 
 		if (InitialInputType.of(InputView.inputInitial()).isStart()) {
-			Boards boards = BoardFactory.create();
-			Turn current = Turn.LOWER;
-			OutputView.printBoard(boards.getTotal());
+			Board lower = BoardFactory.lowerBoard();
+			Board upper = BoardFactory.upperBoard();
+
+			ChessGame chessGame = new ChessGame(GameState.of(lower, upper, Turn.LOWER));
+			OutputView.printBoard(chessGame.completeBoard());
 
 			while (true) {
-				ChessController.run(RunInfo.of(InputView.inputRunInfo()), boards, current);
-				current = current.next();
+				ChessController.run(RunInfo.of(InputView.inputRunInfo()), chessGame);
 			}
 		}
 	}

@@ -1,16 +1,24 @@
 package chess.domain.board;
 
+import chess.domain.piece.Piece;
 import chess.domain.position.Position;
+
+import java.util.List;
+import java.util.Map;
 
 public class GameState {
     private final Board lower;
     private final Board upper;
     private final Turn turn;
 
-    public GameState(Board lower, Board upper, Turn turn) {
+    private GameState(Board lower, Board upper, Turn turn) {
         this.lower = lower;
         this.upper = upper;
         this.turn = turn;
+    }
+
+    public static GameState of(Board lower, Board upper, Turn turn) {
+        return new GameState(lower, upper, turn);
     }
 
     public Board currentBoard() {
@@ -35,5 +43,20 @@ public class GameState {
 
     public MovingType getMovingType(Position from, Position to) {
         return MovingType.of(currentBoard().pieceIn(from), nextBoard().pieceIn(to));
+    }
+
+    public Map<Position, Piece> completeBoard() {
+        return lower.getMerged(upper.reverse());
+    }
+
+    public boolean isKingDead() {
+        return lower.isKingDead() || upper.isKingDead();
+    }
+
+    public boolean hasPieceIn(List<Position> path) {
+        return completeBoard().values()
+                .stream()
+                .filter(Piece::isNotEmpty)
+                .anyMatch(piece -> path.contains(piece.getPosition()));
     }
 }

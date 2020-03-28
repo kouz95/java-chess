@@ -1,11 +1,7 @@
 package chess.domain.board;
 
-import static java.util.stream.Collectors.*;
-
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import chess.domain.piece.Empty;
 import chess.domain.piece.Pawn;
@@ -23,12 +19,11 @@ public class Board {
         return Map.copyOf(board);
     }
 
-    public Map<Position, Piece> getReversedBoard() {
+    public Map<Position, Piece> reverse() {
         Map<Position, Piece> reversedBoard = new LinkedHashMap<>();
-        board.forEach((position, piece) -> reversedBoard.put(position.reverse(), piece));
+        board.forEach((position, piece) -> reversedBoard.put(position.reverse(), piece.getNameReversed()));
         return reversedBoard;
     }
-
 
     private Piece getPieceIn(Position key) {
         if (hasNotPieceIn(key)) {
@@ -42,7 +37,10 @@ public class Board {
     }
 
     public boolean hasPieceIn(Position key) {
-        return board.containsKey(key);
+        return board.values()
+                .stream()
+                .filter(Piece::isNotEmpty)
+                .anyMatch(piece -> piece.isPositionEqualsTo(key));
     }
 
     public void remove(Position key) {
@@ -69,14 +67,31 @@ public class Board {
     }
 
     public void movePiece(Position from, Position to) {
-		Piece target = getPieceIn(from);
+		Piece piece = getPieceIn(from);
 		if (hasPieceIn(to)) {
 			throw new IllegalArgumentException("아군 기물이 위치하고 있습니다.");
 		}
 
-		target.moveTo(to);
+		piece.moveTo(to);
 
         board.replace(to, board.get(from));
         board.replace(from, new Empty(from));
+    }
+
+    public Map<Position, Piece> getMerged(Map<Position, Piece> reverse) {
+        Map<Position, Piece> mergedBoard = new LinkedHashMap<>(board);
+
+        reverse.entrySet()
+        .stream()
+        .filter(entry -> entry.getValue().isNotEmpty())
+        .forEach(entry -> mergedBoard.put(entry.getKey(), entry.getValue()));
+
+        return mergedBoard;
+    }
+
+    public boolean isKingDead() {
+        return board.values()
+                .stream()
+                .noneMatch(Piece::isKing);
     }
 }

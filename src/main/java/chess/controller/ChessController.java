@@ -2,33 +2,30 @@ package chess.controller;
 
 import chess.domain.MoveInfo;
 import chess.domain.RunInfo;
-import chess.domain.board.Turn;
-import chess.domain.board.Boards;
-import chess.domain.status.StatusFactory;
-import chess.service.ChessService;
+import chess.domain.board.ChessGame;
+import chess.domain.position.Position;
 import chess.view.OutputView;
 
 public class ChessController {
-	public static void run(RunInfo runInfo, Boards boards, Turn turn) {
+	public static void run(RunInfo runInfo, ChessGame chessGame) {
 		if (runInfo.isMove()) {
-			move(boards, turn, runInfo);
+			move(chessGame, runInfo);
 		}
 		if (runInfo.isStatus()) {
-
-			status(boards);
+//			status(chessGame);
 			System.exit(0);
 		}
 	}
 
-	private static void move(Boards boards, Turn turn, MoveInfo moveInfo) {
-		if (boards.isKingDead()) {
+	private static void move(ChessGame chessGame, MoveInfo moveInfo) {
+		if (chessGame.cannotMove()) {
 			System.exit(0);
 		}
-		ChessService.move(boards, turn, moveInfo);
-		OutputView.printBoard(boards.getTotal());
+		chessGame.movePiece(Position.of(moveInfo.getFrom()), Position.of(moveInfo.getTo()));
+		OutputView.printBoard(chessGame.completeBoard());
 	}
 
-	private static void status(Boards boards) {
-		OutputView.printStatus(StatusFactory.createBy(boards));
-	}
+//	private static void status(ChessGame chessGame) {
+//		OutputView.printStatus(StatusFactory.createBy(boards));
+//	}
 }
