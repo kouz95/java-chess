@@ -43,4 +43,12 @@ public enum Turn {
 	public int enemy() {
 		return enemy;
 	}
+
+	public boolean isUpper() {
+		return UPPER.equals(this);
+	}
+
+	public boolean isLower() {
+		return LOWER.equals(this);
+	}
 }
