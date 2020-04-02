@@ -90,4 +90,8 @@ public class Position {
 	public static List<Position> getPositions() {
 		return List.copyOf(POSITIONS.values());
 	}
+
+	public String getName() {
+		return key(column, row);
+	}
 }

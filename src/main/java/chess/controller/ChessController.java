@@ -48,8 +48,7 @@ public class ChessController {
 		System.exit(0);
 	}
 
-	public void playTurn() {
-		String input = InputView.inputMoveOrStatus();
+	public void playTurn(String input) {
 		List<String> infos = List.of(input.split(DELIMITER));
 
 		if (!PLAY_COMMANDS.contains(infos.get(COMMAND_INDEX))) {
